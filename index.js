@@ -1,5 +1,4 @@
 const Discord = require("discord.js"); 
-const { totalmem } = require("node:os");
 
 const Client = new Discord.Client; 
 
