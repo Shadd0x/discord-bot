@@ -20,6 +20,7 @@ Client.on ("message", message => {
     if(message.content == prefix + "ping"){
         message.channel.send("pong");
     
+  //!zig
     if(message.content == prefix + "zig"){
         message.channel.send("zag")};
     }
