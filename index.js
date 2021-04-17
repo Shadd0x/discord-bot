@@ -28,6 +28,15 @@ Client.on ("message", message => {
     }
 });
 
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+const token = require("./token.json")
+
+bot.on('ready', function() {
+    bot.user.setActivity(`• Ωmega - Giveaways`, { type: "PLAYING" });
+    console.log("Le bot est allumé !")
+})
+
 bot.on('messagefleactionAdd', async (reaction, member) => {
     if (member.bot) return;
     if (reaction.emoji.name == '🧧' && reaction.message.id == bdd['message-giveaway-cartes cadeaux']) {
@@ -37,7 +46,7 @@ bot.on('messagefleactionAdd', async (reaction, member) => {
     }
 })
 
-bot.on('messageReactionRemove'), (reaction, member) => {
+bot.on('messageReactionRemove', async (reaction, member) => {
     if (member.bot) return;
     if (reaction.emoji.name == '🧧' && reaction.message.id == bdd['message-giveaway-cartes cadeaux']) {
         getindex = bdd['participants-giveaway-cartes cadeaux'].splice(getindex, 1);
@@ -47,16 +56,6 @@ bot.on('messageReactionRemove'), (reaction, member) => {
         Savebdd()
         member.send('Votre désabonnement au giveaway a bien été enregistré !').catch(err => console.log(err));
     }
-}
-
-const Discord = require('discord.js');
-const bot = new Discord.Client();
-const token = require("./token.json")
-
-bot.on("ready", async () =>{
-    console.log("Le bot est allumé")
-    bot.user.setStatus("onligne")
-    bot.user.satActivity("Joue à Ze • Ωmega - Giveaways")
 })
 
 bot.login(token.token)
