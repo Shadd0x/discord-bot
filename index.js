@@ -1,6 +1,8 @@
-const Discord = require("discord.js"); 
+import { Client as _Client } from "discord.js"; 
 
-const Client = new Discord.Client; 
+const Client = new _Client;
+
+Client.login(process.env.TOKEN);
 
 const prefix = "/";
 
@@ -21,10 +23,40 @@ Client.on ("message", message => {
         message.channel.send("pong");
     
   //!zig
-    if(message.content == prefix + "zig"){
+    if(message.content == "/zig"){
         message.channel.send("zag")};
     }
 });
 
+bot.on('messagefleactionAdd', async (reaction, member) => {
+    if (member.bot) return;
+    if (reaction.emoji.name == '🧧' && reaction.message.id == bdd['message-giveaway-cartes cadeaux']) {
+        bdd['participants-giveaway-cartes cadeaux'].push(member.id)
+        Savebdd()
+        member.send('Votre participation au givewvay à bien été enregistré !').catch(err => console.log(err))
+    }
+})
 
-Client.login(process.env.TOKEN);
+bot.on('messageReactionRemove'), (reaction, member) => {
+    if (member.bot) return;
+    if (reaction.emoji.name == '🧧' && reaction.message.id == bdd['message-giveaway-cartes cadeaux']) {
+        getindex = bdd['participants-giveaway-cartes cadeaux'].splice(getindex, 1);
+        if (getindex => -1) {
+            bdd['participants-giveaway-cartes cadeaux'].splice(getindex, 1)
+        }
+        Savebdd()
+        member.send('Votre désabonnement au giveaway a bien été enregistré !').catch(err => console.log(err));
+    }
+}
+
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+const token = require("./token.json")
+
+bot.on("ready", async () =>{
+    console.log("Le bot est allumé")
+    bot.user.setStatus("onligne")
+    bot.user.satActivity("Joue à Ze • Ωmega - Giveaways")
+})
+
+bot.login(token.token)
